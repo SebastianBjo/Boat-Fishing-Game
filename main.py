@@ -36,7 +36,6 @@ CURRENT_METHOD = "rod"
 class Boat(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("assets/boat.png")
         self.rect = self.image.get_rect()
         self.rect.x = WINDOW_WIDTH // 2
         self.rect.y = WINDOW_HEIGHT - 50
@@ -50,7 +49,6 @@ class Boat(pygame.sprite.Sprite):
 class FishingCreature(pygame.sprite.Sprite):
     def __init__(self, x, y, speed_x, speed_y, creature_type):
         super().__init__()
-        self.image = pygame.image.load(f"assets/{creature_type}.png")
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
