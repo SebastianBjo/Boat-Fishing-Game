@@ -5,6 +5,7 @@ import api from '../services/api';
 export default function FishingGame() {
   const [location, setLocation] = useState('');
   const [catches, setCatches] = useState([]);
+  const [playerPosition, setPlayerPosition] = useState({ x: 0, y: 0 });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,6 +29,32 @@ export default function FishingGame() {
 
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
+  };
+
+  const handlePlayerMove = (direction) => {
+    setPlayerPosition((prevPosition) => {
+      let newX = prevPosition.x;
+      let newY = prevPosition.y;
+
+      switch (direction) {
+        case 'left':
+          newX = Math.max(prevPosition.x - 10, 0);
+          break;
+        case 'right':
+          newX = Math.min(prevPosition.x + 10, 800 - 64);
+          break;
+        case 'up':
+          newY = Math.max(prevPosition.y - 10, 0);
+          break;
+        case 'down':
+          newY = Math.min(prevPosition.y + 10, 600 - 64);
+          break;
+        default:
+          break;
+      }
+
+      return { x: newX, y: newY };
+    });
   };
 
   return (
@@ -78,9 +105,40 @@ export default function FishingGame() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Boat className="mx-auto mb-4" />
-          <p>Your Fishing Boat</p>
+        <div className="mt-8 relative">
+          <Boat
+            className="absolute"
+            style={{
+              left: `${playerPosition.x}px`,
+              bottom: `${playerPosition.y}px`,
+            }}
+          />
+          <div className="flex justify-center space-x-4">
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+              onClick={() => handlePlayerMove('left')}
+            >
+              Left
+            </button>
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+              onClick={() => handlePlayerMove('right')}
+            >
+              Right
+            </button>
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+              onClick={() => handlePlayerMove('up')}
+            >
+              Up
+            </button>
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+              onClick={() => handlePlayerMove('down')}
+            >
+              Down
+            </button>
+          </div>
         </div>
       </div>
     </div>
