@@ -36,6 +36,8 @@ CURRENT_METHOD = "rod"
 class Boat(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        self.image = pygame.Surface((60, 20))  # width 60, height 20
+self.image.fill((139, 69, 19))         # brown color for the boat
         self.rect = self.image.get_rect()
         self.rect.x = WINDOW_WIDTH // 2
         self.rect.y = WINDOW_HEIGHT - 50
@@ -49,6 +51,15 @@ class Boat(pygame.sprite.Sprite):
 class FishingCreature(pygame.sprite.Sprite):
     def __init__(self, x, y, speed_x, speed_y, creature_type):
         super().__init__()
+        self.image = pygame.Surface((30, 15))  # width 30, height 15
+if creature_type == "fish":
+    self.image.fill((0, 105, 148))    # blue
+elif creature_type == "scallop":
+    self.image.fill((255, 255, 0))    # yellow
+elif creature_type == "crab":
+    self.image.fill((255, 0, 0))      # red
+elif creature_type == "lobster":
+    self.image.fill((128, 0, 128))    # purple
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
